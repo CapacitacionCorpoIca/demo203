@@ -1,0 +1,20 @@
+<ion-menu [content]="content">
+  <!-- Header -->
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>UI</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- content -->
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose *ngFor="let page of pages" (click)="goToPage( page.component )">
+        <ion-icon [name]="page.icon" item-left></ion-icon>
+        {{ page.title }}
+        <ion-badge *ngIf="page.count > 0" item-right>{{ page.count }}</ion-badge>
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

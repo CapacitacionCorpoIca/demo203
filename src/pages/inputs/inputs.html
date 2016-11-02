@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Inputs</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Ciudades visitadas
+    </ion-list-header>
+    <ion-item *ngFor="let city of cities">
+      <ion-label>{{ city.title }}</ion-label>
+      <ion-checkbox></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-list radio-group>
+    <ion-list-header>
+      Nacionalidad
+    </ion-list-header>
+    <ion-item *ngFor="let nationality of nationalities">
+      <ion-label>{{ nationality.title }}</ion-label>
+      <ion-radio [value]="nationality.value"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Datos
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Cumpleaños</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" doneText="Aceptar" cancelText="Cancelar"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hora</ion-label>
+      <ion-datetime displayFormat="h:mm, A" pickerFormat="h mm A"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Series
+    </ion-list-header>
+    <ion-item> 
+      <ion-label>Series</ion-label>
+      <ion-select>
+        <ion-option [value]="serie.value" *ngFor="let serie of series">{{ serie.title }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Configuraciones
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Notificaciones</ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-toggle checked="false"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Rangos
+    </ion-list-header>
+    <ion-item>
+      <ion-range pin="true">
+        <ion-icon range-left small name="sunny"></ion-icon>
+        <ion-icon range-right name="sunny"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+</ion-content>
