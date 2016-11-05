@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>company-form</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form novalidate [formGroup]="companyForm" (ngSubmit)="saveData()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nombre:</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="companyForm.get('name').errors && companyForm.get('name').dirty">
+        <p *ngIf="companyForm.get('name').hasError('required')">El campo es requerido</p>
+        <p *ngIf="companyForm.get('name').hasError('pattern')">No se aceptan caracteres especciales</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Tipo:</ion-label>
+        <ion-select formControlName="type">
+          <ion-option value="public">Publica</ion-option>
+          <ion-option value="private">Privada</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="companyForm.get('type').errors && companyForm.get('type').dirty">
+        <p *ngIf="companyForm.get('type').hasError('required')">El campo es requerido</p>
+      </ion-item>
+      <ion-item>
+        <ion-range min="0" max="100" formControlName="number" pin="true"></ion-range>
+      </ion-item>
+      <ion-item *ngIf="companyForm.get('number').errors && companyForm.get('number').dirty">
+        <p *ngIf="companyForm.get('number').hasError('required')">El campo es requerido</p>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!companyForm.valid">Guardar</button>
+    </div>
+  </form>
+</ion-content>

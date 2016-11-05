@@ -5,7 +5,9 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { HomePage } from '../pages/home/home';
 import { AlertPage } from '../pages/alert/alert';
 import { InputsPage } from '../pages/inputs/inputs';
-
+import { FormPage } from '../pages/form/form';
+import { CompanyFormPage } from '../pages/company-form/company-form';
+import { TasksPage } from '../pages/tasks/tasks';
 
 @Component({
   templateUrl: 'app.html'
@@ -35,6 +37,27 @@ export class MyApp {
       title: 'Inputs',
       icon: 'logo-tux',
       component: InputsPage,
+      count: 3
+    });
+    //Agregar form page
+    this.pages.push({
+      title: 'Form',
+      icon: 'at',
+      component: FormPage,
+      count: 0
+    });
+
+    this.pages.push({
+      title: 'Company Form',
+      icon: 'home',
+      component: CompanyFormPage,
+      count: 0
+    });
+
+    this.pages.push({
+      title: 'Tasks',
+      icon: 'cafe',
+      component: TasksPage,
       count: 3
     });
 

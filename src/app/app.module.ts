@@ -5,6 +5,9 @@ import { HomePage } from '../pages/home/home';
 import { AlertPage } from '../pages/alert/alert';
 import { InputsPage } from '../pages/inputs/inputs';
 import { OptionsPage } from '../pages/options/options';
+import { FormPage } from '../pages/form/form';
+import { CompanyFormPage } from '../pages/company-form/company-form';
+import { TasksPage } from '../pages/tasks/tasks';
 
 @NgModule({
   declarations: [
@@ -12,7 +15,10 @@ import { OptionsPage } from '../pages/options/options';
     HomePage,
     AlertPage,
     InputsPage,
-    OptionsPage
+    OptionsPage,
+    FormPage,
+    CompanyFormPage,
+    TasksPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -23,7 +29,10 @@ import { OptionsPage } from '../pages/options/options';
     HomePage,
     AlertPage,
     InputsPage,
-    OptionsPage
+    OptionsPage,
+    FormPage,
+    CompanyFormPage,
+    TasksPage
   ],
   providers: []
 })

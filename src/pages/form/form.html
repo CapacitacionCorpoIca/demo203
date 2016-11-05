@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Form</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <form novalidate [formGroup]="userForm" (ngSubmit)="saveData()">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nombre:</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="userForm.get('name').errors && userForm.get('name').dirty">
+        <p *ngIf="userForm.get('name').hasError('required')">El campo es requerido</p>
+        <p *ngIf="userForm.get('name').hasError('minlength')">El campo debe mayor a 5 caracteres</p>
+        <p *ngIf="userForm.get('name').hasError('maxlength')">El campo debe menor a 20 caracteres</p>
+        <p *ngIf="userForm.get('name').hasError('pattern')">No puede tener caracteres especiales</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Apellido:</ion-label>
+        <ion-input type="text" formControlName="lastname"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="userForm.get('lastname').errors && userForm.get('lastname').dirty">
+        <p *ngIf="userForm.get('lastname').hasError('required')">El campo es requerido</p>
+        <p *ngIf="userForm.get('lastname').hasError('hasnicolas')">Los Nicolas no estan permitidos</p>
+      </ion-item>
+    </ion-list>
+    <ion-list radio-group formControlName="gender">
+      <ion-list-header>Genero:</ion-list-header>
+      <ion-item>
+        <ion-label>Masculino</ion-label>
+        <ion-radio value="M"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Femenino</ion-label>
+        <ion-radio value="F" ></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-list formGroupName="passwordGroup">
+      <ion-item>
+        <ion-label floating>Contraseña:</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="userForm.get('passwordGroup').get('password').errors && userForm.get('passwordGroup').get('password').dirty">
+        <p *ngIf="userForm.get('passwordGroup').get('password').hasError('required')">El campo es requerido</p>
+        <p *ngIf="userForm.get('passwordGroup').get('password').hasError('minlength')">La contrseña debe ser mayor a 8</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating> Confirmar Contraseña:</ion-label>
+        <ion-input type="password" formControlName="passwordConfirm"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="userForm.get('passwordGroup').get('passwordConfirm').errors && userForm.get('passwordGroup').get('passwordConfirm').dirty">
+        <p *ngIf="userForm.get('passwordGroup').get('passwordConfirm').hasError('required')">El campo es requerido</p>
+        <p *ngIf="userForm.get('passwordGroup').get('passwordConfirm').hasError('minlength')">La contrseña debe ser mayor a 8</p>
+      </ion-item>
+      <ion-item *ngIf="userForm.get('passwordGroup').errors && userForm.get('passwordGroup').dirty">
+        <p *ngIf="userForm.get('passwordGroup').hasError('nomatch')">Las contraseñas no son iguales</p>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!userForm.valid">Guardar</button>
+    </div>
+  </form>
+</ion-content>
