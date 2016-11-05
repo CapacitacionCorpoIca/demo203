@@ -9,6 +9,8 @@ import { FormPage } from '../pages/form/form';
 import { CompanyFormPage } from '../pages/company-form/company-form';
 import { TasksPage } from '../pages/tasks/tasks';
 
+import { TasksService } from '../providers/tasks.service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,6 +36,8 @@ import { TasksPage } from '../pages/tasks/tasks';
     CompanyFormPage,
     TasksPage
   ],
-  providers: []
+  providers: [
+    TasksService
+  ]
 })
 export class AppModule {}
