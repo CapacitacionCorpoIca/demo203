@@ -18,4 +18,22 @@ export class TasksService {
     .toPromise();
   }
 
+  create(task: any){
+    return this.http.post(`${this.path}/todos`, task)
+    .map(response => response.json())
+    .toPromise();
+  }
+
+  update(task: any){
+    return this.http.put(`${this.path}/todos/${task.id}`, task)
+    .map(response => response.json())
+    .toPromise();
+  }
+
+  delete(taskId: number){
+    return this.http.delete(`${this.path}/todos/${taskId}`)
+    .map(response => response.json())
+    .toPromise();
+  }
+
 }

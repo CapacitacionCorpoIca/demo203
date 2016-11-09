@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ItemSliding, ToastController } from 'ionic-angular';
+import { NavController, AlertController, ToastController, ItemSliding } from 'ionic-angular';
 
-import { TasksService } from '../../providers/tasks.service';
+import { TasksSqliteService } from '../../providers/tasks-sqlite.service';
 
 @Component({
-  selector: 'page-tasks',
-  templateUrl: 'tasks.html'
+  selector: 'page-tasks-sqlite',
+  templateUrl: 'tasks-sqlite.html'
 })
-export class TasksPage {
+export class TasksSqlitePage {
 
   tasks: {}[] = [];
   tasksBackup: any[] = [];
@@ -15,7 +15,7 @@ export class TasksPage {
 
   constructor(
     public navCtrl: NavController,
-    public tasksService: TasksService,
+    public tasksSqliteService: TasksSqliteService,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController
   ) {}
@@ -45,9 +45,10 @@ export class TasksPage {
           text: 'Crear',
           handler: (data)=>{ 
             data.completed = false;
-            this.tasksService.create(data)
-            .then(task => {
-              this.tasks.unshift( task );
+            this.tasksSqliteService.create(data)
+            .then(response => {
+              console.log( response );
+              this.tasks.unshift( data );
             })
           }
         }
@@ -80,9 +81,10 @@ export class TasksPage {
           text: 'Actulizar',
           handler: (data)=>{ 
            task.title = data.title;
-           this.tasksService.update(task)
-           .then( updatedTask => {
-             this.tasks[index] = updatedTask;
+           this.tasksSqliteService.update(task)
+           .then( response => {
+             console.log( response );
+             this.tasks[index] = task;
              sliding.close();
            })
            .catch( error => {
@@ -103,10 +105,10 @@ export class TasksPage {
   updateTask(task, index){
     task = Object.assign({}, task);
     task.completed = !task.completed;
-    this.tasksService.update(task)
-    .then( updatedTask => {
-      console.log( updatedTask );
-      this.tasks[index] = updatedTask;
+    this.tasksSqliteService.update(task)
+    .then( response => {
+      console.log( response );
+      this.tasks[index] = task;
     })
     .catch( error => {
       console.log( error );
@@ -119,8 +121,9 @@ export class TasksPage {
   }
 
   deleteTask(task: any, index){
-    this.tasksService.delete(task.id)
-    .then(data => {
+    this.tasksSqliteService.delete(task.id)
+    .then(response => {
+      console.log( response );
       this.tasks.splice(index, 1);
       let toast = this.toastCtrl.create({
         message: 'Todo bien!',
@@ -149,7 +152,7 @@ export class TasksPage {
   }
 
   private loadTasks(){
-    this.tasksService.getAll()
+    this.tasksSqliteService.read()
     .then( tasks => {
       this.tasks = tasks;
       this.tasksBackup = this.tasks;

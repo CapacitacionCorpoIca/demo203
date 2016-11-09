@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ItemSliding, ToastController } from 'ionic-angular';
+import { NavController, AlertController, ToastController, ItemSliding } from 'ionic-angular';
 
-import { TasksService } from '../../providers/tasks.service';
+import { TasksLocalService } from '../../providers/tasks-local.service';
 
 @Component({
-  selector: 'page-tasks',
-  templateUrl: 'tasks.html'
+  selector: 'page-tasks-local',
+  templateUrl: 'tasks-local.html'
 })
-export class TasksPage {
+export class TasksLocalPage {
 
-  tasks: {}[] = [];
-  tasksBackup: any[] = [];
+  tasks: any[] = [];
   filter: string = 'all';
 
   constructor(
     public navCtrl: NavController,
-    public tasksService: TasksService,
+    public tasksLocalService: TasksLocalService,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController
   ) {}
@@ -45,10 +44,8 @@ export class TasksPage {
           text: 'Crear',
           handler: (data)=>{ 
             data.completed = false;
-            this.tasksService.create(data)
-            .then(task => {
-              this.tasks.unshift( task );
-            })
+            this.tasks.unshift( data );
+            this.tasksLocalService.save(this.tasks);
           }
         }
       ]
@@ -80,9 +77,9 @@ export class TasksPage {
           text: 'Actulizar',
           handler: (data)=>{ 
            task.title = data.title;
-           this.tasksService.update(task)
-           .then( updatedTask => {
-             this.tasks[index] = updatedTask;
+           this.tasks[index] = task;
+           this.tasksLocalService.save(this.tasks)
+           .then(() => {
              sliding.close();
            })
            .catch( error => {
@@ -103,11 +100,9 @@ export class TasksPage {
   updateTask(task, index){
     task = Object.assign({}, task);
     task.completed = !task.completed;
-    this.tasksService.update(task)
-    .then( updatedTask => {
-      console.log( updatedTask );
-      this.tasks[index] = updatedTask;
-    })
+    this.tasks[index] = task;
+    this.tasksLocalService.save(this.tasks)
+    .then(()=> {})
     .catch( error => {
       console.log( error );
       let toast = this.toastCtrl.create({
@@ -119,9 +114,9 @@ export class TasksPage {
   }
 
   deleteTask(task: any, index){
-    this.tasksService.delete(task.id)
+    this.tasks.splice(index, 1);
+    this.tasksLocalService.save(this.tasks)
     .then(data => {
-      this.tasks.splice(index, 1);
       let toast = this.toastCtrl.create({
         message: 'Todo bien!',
         duration: 3000
@@ -139,20 +134,29 @@ export class TasksPage {
   }
 
   filterTasks(){
-    this.tasks = this.applyFilter();
+    this.applyFilter();
   }
 
   private applyFilter(){
-    if(this.filter == 'undone') return this.tasksBackup.filter(task => !task.completed);
-    if(this.filter == 'done') return this.tasksBackup.filter(task => task.completed);
-    return this.tasksBackup;
+    this.tasks.forEach(task => {
+      if(this.filter == 'undone') task.hide = true;
+      if(this.filter == 'done') task.hide = true;
+      if(this.filter == 'all') task.hide = false;
+    });
   }
 
   private loadTasks(){
-    this.tasksService.getAll()
+    this.tasksLocalService.get()
     .then( tasks => {
-      this.tasks = tasks;
-      this.tasksBackup = this.tasks;
+      if(tasks !== null){
+        console.log(tasks);
+        console.log(typeof tasks);
+        this.tasks = JSON.parse(tasks);
+        this.tasks = this.tasks.map(item=>{
+          item.hide = false;
+          return item;
+        })
+      }
     })
   }
 

@@ -20,7 +20,7 @@
     <ion-segment-button value="done">Hechas</ion-segment-button>
   </ion-segment>
   <ion-list>
-    <ion-item-sliding #sliding *ngFor="let task of tasks; let i = index">
+    <ion-item-sliding #sliding [hidden]="task.hide" *ngFor="let task of tasks; let i = index">
       <ion-item>
         <ion-label>{{ task.title }}</ion-label>
         <ion-checkbox (ionChange)="updateTask( task, i )" [checked]="task.completed"></ion-checkbox>
