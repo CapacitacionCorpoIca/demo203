@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>camera</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <img [src]="photo" alt="avatar" *ngIf="photo != null">
+  <button ion-button icon-left block (click)="takePicture()">
+    <ion-icon name="camera"></ion-icon>
+    Take selfie!
+  </button>
+</ion-content>

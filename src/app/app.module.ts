@@ -12,6 +12,9 @@ import { CompanyFormPage } from '../pages/company-form/company-form';
 import { TasksPage } from '../pages/tasks/tasks';
 import { TasksLocalPage } from '../pages/tasks-local/tasks-local';
 import { TasksSqlitePage } from '../pages/tasks-sqlite/tasks-sqlite';
+import { CameraPage } from '../pages/camera/camera';
+import { MapsPage } from '../pages/maps/maps';
+import { VibratePage } from '../pages/vibrate/vibrate';
 
 import { TasksService } from '../providers/tasks.service';
 import { TasksLocalService } from '../providers/tasks-local.service';
@@ -28,7 +31,10 @@ import { TasksSqliteService } from '../providers/tasks-sqlite.service';
     CompanyFormPage,
     TasksPage,
     TasksLocalPage,
-    TasksSqlitePage
+    TasksSqlitePage,
+    CameraPage,
+    MapsPage,
+    VibratePage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -44,7 +50,10 @@ import { TasksSqliteService } from '../providers/tasks-sqlite.service';
     CompanyFormPage,
     TasksPage,
     TasksLocalPage,
-    TasksSqlitePage
+    TasksSqlitePage,
+    CameraPage,
+    MapsPage,
+    VibratePage
   ],
   providers: [
     Storage,

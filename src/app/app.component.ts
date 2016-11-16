@@ -10,6 +10,9 @@ import { CompanyFormPage } from '../pages/company-form/company-form';
 import { TasksPage } from '../pages/tasks/tasks';
 import { TasksLocalPage } from '../pages/tasks-local/tasks-local';
 import { TasksSqlitePage } from '../pages/tasks-sqlite/tasks-sqlite';
+import { CameraPage } from '../pages/camera/camera';
+import { MapsPage } from '../pages/maps/maps';
+import { VibratePage } from '../pages/vibrate/vibrate';
 
 @Component({
   templateUrl: 'app.html'
@@ -74,6 +77,27 @@ export class MyApp {
       title: 'Tasks sqlite',
       icon: 'cafe',
       component: TasksSqlitePage,
+      count: 3
+    });
+
+    this.pages.push({
+      title: 'Camera',
+      icon: 'camera',
+      component: CameraPage,
+      count: 3
+    });
+
+    this.pages.push({
+      title: 'Map',
+      icon: 'map',
+      component: MapsPage,
+      count: 3
+    });
+
+    this.pages.push({
+      title: 'Vibrate',
+      icon: 'body',
+      component: VibratePage,
       count: 3
     });
 
